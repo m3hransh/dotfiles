@@ -1,0 +1,31 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "linux" }}
+{{   if eq .chezmoi.osRelease.id "manjaro" }}
+# Install fish
+if ! pacman -Q fish > /dev/null; then
+  sudo pacman -S fish
+fi
+{{   end }}
+
+{{   if eq .chezmoi.osRelease.id "ubuntu" }}
+# Install fish
+if ! apt-cache show fish > /dev/null; then
+  sudo apt install fish
+fi
+{{   end }}
+
+# Install omf
+if [ ! -d ~/.local/share/omf ]; then
+  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+  fish install --path=~/.local/share/omf --config=~/.config/omf
+fi
+fish -c "omf install bass"
+if [[ ! "$SHELL" =~ .*"fish".* ]]; then
+  chsh -s /bin/fish 
+fi
+curl -fsSL https://fnm.vercel.app/install | bash
+# Install starship shell prompt
+if [ ! -f /usr/local/bin/starship ]; then
+  curl -sS https://starship.rs/install.sh | sh 2> /dev/null
+fi
+{{ end }}
