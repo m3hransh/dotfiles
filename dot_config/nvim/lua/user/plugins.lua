@@ -113,6 +113,9 @@ return packer.startup(function(use)
   -- Git
   use "lewis6991/gitsigns.nvim"
 
+  -- Discord rich presense
+  use "andweeb/presence.nvim"
+
   -- Markdonw
   use {
     "iamcco/markdown-preview.nvim",
