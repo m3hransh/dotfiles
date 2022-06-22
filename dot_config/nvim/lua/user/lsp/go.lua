@@ -2,7 +2,11 @@ local go_ok, go = pcall(require, "go")
 if not go_ok then
   return
 end
-local path = require "nvim-lsp-installer.core.path"
+
+local path_ok, path = pcall(require, "nvim-lsp-installer.core.path")
+if not path_ok then
+  return
+end
 local install_root_dir = path.concat {
   vim.fn.stdpath "data",
   "lsp_servers",
