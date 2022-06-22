@@ -16,10 +16,10 @@ lsp_installer.on_server_ready(function(server)
     opts = vim.tbl_deep_extend("force", jsonls_opts, opts)
   end
 
-  if server.name == "gopls" then
-    local go_opts = require("go.lsp").config()
-    opts = vim.tbl_deep_extend("force", go_opts, opts)
-  end
+  -- if server.name == "gopls" then
+  --   local go_opts = require("go.lsp").config()
+  --   opts = vim.tbl_deep_extend("force", go_opts, opts)
+  -- end
 
   if server.name == "sumneko_lua" then
     local sumneko_opts = require "user.lsp.settings.sumneko_lua"

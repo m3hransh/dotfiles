@@ -1,7 +1,8 @@
 local fn = vim.fn
 
 -- Automatically install packer
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath "data"
+  .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = fn.system {
     "git",
@@ -88,7 +89,6 @@ return packer.startup(function(use)
   -- LSP
   use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer"
-  use "tamago324/nlsp-settings.nvim"
   use "jose-elias-alvarez/null-ls.nvim"
   use "ray-x/go.nvim"
   use "ray-x/guihua.lua" -- floating window support
@@ -113,16 +113,18 @@ return packer.startup(function(use)
   -- Git
   use "lewis6991/gitsigns.nvim"
 
-  -- Discord rich presense
-  use "andweeb/presence.nvim"
-
   -- Markdonw
   use {
     "iamcco/markdown-preview.nvim",
-    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-    ft = { "markdown" }, 
+    setup = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
     run = "cd app && yarn install",
   }
+  -- Discord presence
+  use "andweeb/presence.nvim"
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

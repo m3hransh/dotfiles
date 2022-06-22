@@ -34,7 +34,6 @@ keymap("n", "<C-S>", ":update<CR>", opts)
 keymap("v", "<C-S>", "<C-C>:update<CR>", opts)
 keymap("i", "<C-S>", "<C-O>:update<CR>", opts)
 
-
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
@@ -47,7 +46,6 @@ keymap("n", "<leader><leader>", "<c-^>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
 
 -- Insert --
 -- Press jk fast to enter
@@ -76,4 +74,3 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-

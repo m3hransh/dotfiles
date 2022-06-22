@@ -76,7 +76,7 @@ nvim_tree.setup {
           symlink = "",
         },
       },
-      }
+    },
   },
   git = {
     enable = true,

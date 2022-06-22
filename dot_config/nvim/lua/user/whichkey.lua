@@ -100,7 +100,10 @@ local mappings = {
       .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
     "Find Text",
   },
-  ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  ["P"] = {
+    "<cmd>lua require('telescope').extensions.projects.projects()<cr>",
+    "Projects",
+  },
 
   p = {
     name = "Packer",

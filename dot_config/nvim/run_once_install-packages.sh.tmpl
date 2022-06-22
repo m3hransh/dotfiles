@@ -1,14 +1,35 @@
 #!/bin/bash
+
 {{ if eq .chezmoi.os "linux" }}
 {{   if eq .chezmoi.osRelease.id "manjaro" }}
-sudo pacman -S ripgrep neovim
+if ! pacman -Q neovim &> /dev/null; then
+  sudo pacman -S neovim
+fi
+
+if ! pacman -Q ripgrep &> /dev/null; then
+  sudo pacman -S ripgrep
+fi
 
 if ! command -v fnm &> /dev/null; then
 curl -fsSL https://fnm.vercel.app/install | bash
 fi
+
 if ! command -v node &> /dev/null; then
 fnm install --lts
 fi
+
+if ! pacman -Q lua-language-server &> /dev/null; then
+  sudo pacman -S lua-language-server 
+fi
+
 # Install rust
+if ! command -v cargo &> /dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+if ! command -v stylua &> /dev/null; then
+  cargo install stylua
+fi
+
 {{ end }}
 {{ end }}
