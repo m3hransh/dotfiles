@@ -50,6 +50,8 @@ local kind_icons = {
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -105,6 +107,11 @@ cmp.setup {
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      if entry.source.name == "copilot" then
+        vim_item.kind = "[] Copilot"
+        vim_item.kind_hl_group = "CmpItemKindCopilot"
+        return vim_item
+      end
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[NVIM_LUA]",
@@ -117,6 +124,7 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" },
+    { name = "copilot" },
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "buffer" },
