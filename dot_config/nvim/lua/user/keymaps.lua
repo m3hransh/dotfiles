@@ -67,7 +67,27 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
-
+-- URL handling
+-- source: https://sbulav.github.io/vim/neovim-opening-urls/
+if vim.fn.has "mac" == 1 then
+  keymap(
+    "",
+    "gx",
+    '<Cmd>call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>',
+    {}
+  )
+elseif vim.fn.has "unix" == 1 then
+  keymap(
+    "",
+    "gx",
+    '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
+    {}
+  )
+else
+  keymap[""].gx = {
+    '<Cmd>lua print("Error: gx is not supported on this OS!")<CR>',
+  }
+end
 -- Terminal --
 -- Better terminal navigation
 -- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)

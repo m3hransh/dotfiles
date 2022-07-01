@@ -58,7 +58,7 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness 
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec brave
 bindsym $mod+F3 exec kitty -e ranger
-# bindsym $mod+F3 exec ranger
+bindsym $mod+o exec obsidian
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+F5 exec Kitty -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill picom

@@ -18,5 +18,4 @@ go.setup {
   dap_debug = true,
   dap_debug_gui = true,
   lsp_cfg = true,
-  lsp_on_attach = true,
 }

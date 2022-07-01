@@ -114,14 +114,15 @@ return packer.startup(function(use)
   use "lewis6991/gitsigns.nvim"
 
   -- Markdonw
-  use {
-    "iamcco/markdown-preview.nvim",
-    setup = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
-    run = "cd app && yarn install",
-  }
+  -- use {
+  --   "iamcco/markdown-preview.nvim",
+  --   setup = function()
+  --     vim.g.mkdp_filetypes = { "markdown" }
+  --   end,
+  --   ft = { "markdown" },
+  --   run = "cd app && npm install",
+  -- }
+  --
   -- Discord presence
   use "andweeb/presence.nvim"
 
@@ -136,7 +137,6 @@ return packer.startup(function(use)
       end, 100)
     end,
   }
-
   use {
     "zbirenbaum/copilot-cmp",
     module = "copilot_cmp",
