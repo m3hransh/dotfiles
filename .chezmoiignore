@@ -44,4 +44,4 @@ nvim/*.x86_64
 nvim/*.hex
 
 
-nvim/plugin/packer_compiled.lua
+.config/nvim/plugin/packer_compiled.lua

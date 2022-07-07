@@ -1,0 +1,17 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+{{ if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "manjaro") (eq .chezmoi.osRelease.id "endeavouros")) }}
+# Install kitty
+if ! pacman -Q kitty > /dev/null; then
+  sudo pacman -S kitty
+fi
+{{   end -}}
+
+{{   if eq .chezmoi.osRelease.id "ubuntu" }}
+# Install kitty
+if ! apt-cache show kitty > /dev/null; then
+  sudo apt install kitty
+fi
+{{   end -}}
+
+{{ end }}

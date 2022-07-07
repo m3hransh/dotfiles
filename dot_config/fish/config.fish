@@ -4,6 +4,7 @@ set PATH $PATH /usr/local/go/bin
 set PATH $PATH /home/mehran/go/bin
 set PATH $PATH /home/mehran/.cargo/bin
 set PATH $PATH /home/mehran/.yarn/bin
+set PATH $PATH /home/mehran/.local/bin
 
 set TERMINAL Kitty
 set EDITOR (which nvim) 

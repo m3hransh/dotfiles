@@ -8,7 +8,10 @@ if not status_ok then
   return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
+local config_status_ok, nvim_tree_config = pcall(
+  require,
+  "nvim-tree.config"
+)
 if not config_status_ok then
   return
 end
@@ -27,10 +30,6 @@ nvim_tree.setup {
   open_on_tab = false,
   hijack_cursor = false,
   update_cwd = true,
-  update_to_buf_dir = {
-    enable = true,
-    auto_open = true,
-  },
   diagnostics = {
     enable = true,
     icons = {
@@ -88,7 +87,6 @@ nvim_tree.setup {
     height = 30,
     hide_root_folder = false,
     side = "left",
-    auto_resize = true,
     mappings = {
       custom_only = false,
       list = {

@@ -1,7 +1,6 @@
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
-
-{{ if eq .chezmoi.os "linux" }}
-{{   if eq .chezmoi.osRelease.id "manjaro" }}
+{{   if (or (eq .chezmoi.osRelease.id "manjaro") (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "endeavouros") ) }}
 if ! pacman -Q neovim &> /dev/null; then
   sudo pacman -S neovim
 fi
@@ -12,6 +11,7 @@ fi
 
 if ! command -v fnm &> /dev/null; then
 curl -fsSL https://fnm.vercel.app/install | bash
+source /home/mehran/.bashrc
 fi
 
 if ! command -v node &> /dev/null; then
@@ -22,14 +22,19 @@ if ! pacman -Q lua-language-server &> /dev/null; then
   sudo pacman -S lua-language-server 
 fi
 
+# install Go
+if ! command -v go &> /dev/null; then
+  sudo pacman -S go
+fi
 # Install rust
 if ! command -v cargo &> /dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  source $HOME/.cargo/env
 fi
 
 if ! command -v stylua &> /dev/null; then
   cargo install stylua
 fi
 
-{{ end }}
+{{   end   }}
 {{ end }}
