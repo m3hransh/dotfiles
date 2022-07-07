@@ -1,11 +1,11 @@
 set fish_greeting
+
 set PATH $PATH /usr/local/go/bin
 set PATH $PATH /home/mehran/go/bin
 set PATH $PATH /home/mehran/.cargo/bin
 set PATH $PATH /home/mehran/.yarn/bin
-abbr -a ws 'sudo systemctl start windscribe'
-abbr -a wind 'windscribe connect'
-set TERMINAL (which nvim)
+
+set TERMINAL Kitty
 set EDITOR (which nvim) 
 #-----------------------------------------------------
 #Aliases
@@ -15,11 +15,6 @@ alias nn="nvim"
 alias color "colorscript random"
 alias ll "exa --icons -l -g"
 alias tlmgr "/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode"
-
-# PATH
-set -U fish_user_paths $HOME/.local/share/gem/ruby/3.0.0/bin
-
-
 
 starship init fish | source
 
@@ -35,7 +30,7 @@ starship init fish | source
     set -l cyan 7dcfff
     set -l pink bb9af7
     
-    # Syntax Highlighting Colors
+# Syntax Highlighting Colors
     set -g fish_color_normal $foreground
     set -g fish_color_command $cyan
     set -g fish_color_keyword $pink
@@ -51,7 +46,7 @@ starship init fish | source
     set -g fish_color_escape $pink
     set -g fish_color_autosuggestion $comment
     
-    # Completion Pager Colors
+# Completion Pager Colors
     set -g fish_pager_color_progress $comment
     set -g fish_pager_color_prefix $cyan
     set -g fish_pager_color_completion $foreground
