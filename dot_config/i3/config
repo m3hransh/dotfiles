@@ -415,6 +415,8 @@ exec_always --no-startup-id "setxkbmap -layout us,ir,de -option 'grp:alt_shift_t
 exec_always --no-startup-id sbxkb
 exec --no-startup-id asusctltray
 
+exec --no-startup-id redshift-gtk
+
 exec_always --no-startup-id  ~/.config/polybar/launch.sh
 # start conky:
 #exec_always --no-startup-id conky
