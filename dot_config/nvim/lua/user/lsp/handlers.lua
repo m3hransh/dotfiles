@@ -78,10 +78,10 @@ end
 
 local function lsp_keymaps(client, bufnr)
   local opts = { noremap = true, silent = true }
-  local rc = client.resolved_capabilities
+  local rc = client.server_capabilities
 
   map_cond(
-    rc.declaration,
+    rc.declarationProvider,
     bufnr,
     "n",
     "gD",
@@ -89,7 +89,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.goto_definition,
+    rc.definitionProvider,
     bufnr,
     "n",
     "gd",
@@ -97,7 +97,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.implementation,
+    rc.implementationProvider,
     bufnr,
     "n",
     "gi",
@@ -105,7 +105,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.type_definition,
+    rc.typeDefinitionProvider,
     bufnr,
     "n",
     "<leader>D",
@@ -113,7 +113,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.rename,
+    rc.renameProvider,
     bufnr,
     "n",
     "<leader>rn",
@@ -121,7 +121,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.lsp_references,
+    rc.referenceProvider,
     bufnr,
     "n",
     "gr",
@@ -129,7 +129,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.hover,
+    rc.hoverProvider,
     bufnr,
     "n",
     "K",
@@ -137,7 +137,7 @@ local function lsp_keymaps(client, bufnr)
     opts
   )
   map_cond(
-    rc.signature_help,
+    rc.signatureHelpProvider,
     bufnr,
     "n",
     "<C-k>",
@@ -202,8 +202,7 @@ end
 M.on_attach = function(client, bufnr)
   if client.name == "tsserver" or client.name == "sumneko_lua" then
     -- Disable the tsserver formating for null-ls
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
   end
   lsp_keymaps(client, bufnr)
   lsp_highlight_document(client)
