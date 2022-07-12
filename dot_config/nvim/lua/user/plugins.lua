@@ -68,14 +68,21 @@ return packer.startup(function(use)
   use "folke/tokyonight.nvim"
 
   use "norcalli/nvim-colorizer.lua"
+
   -- cmp plugins
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/cmp-path"
-  use "hrsh7th/cmp-cmdline"
-  use "saadparwaiz1/cmp_luasnip"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "ray-x/cmp-treesitter",
+      "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "rafamadriz/friendly-snippets",
+    },
+  }
 
   -- LSP outline
   use {
@@ -92,12 +99,16 @@ return packer.startup(function(use)
     "neovim/nvim-lspconfig",
     -- opt = true,
     -- event = "BufReadPre",
-    wants = { "nvim-lsp-installer" },
+    wants = {
+      "cmp-nvim-lsp",
+      "nvim-lsp-installer",
+      "lua-dev.nvim",
+    },
     requires = {
       "williamboman/nvim-lsp-installer",
+      "folke/lua-dev.nvim",
     },
   }
-  use "williamboman/nvim-lsp-installer"
   use "jose-elias-alvarez/null-ls.nvim"
   use "ray-x/go.nvim"
   use "ray-x/guihua.lua" -- floating window support

@@ -15,8 +15,8 @@ local setup = {
     -- No actual key bindings are created
     presets = {
       operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-      motions = true, -- adds help for motions
-      text_objects = true, -- help for text objects triggered after entering an operator
+      motions = false, -- adds help for motions
+      text_objects = false, -- help for text objects triggered after entering an operator
       windows = true, -- default bindings on <c-w>
       nav = true, -- misc bindings to work with windows
       z = true, -- bindings for folds, spelling and others prefixed with z
@@ -25,7 +25,7 @@ local setup = {
   },
   -- add operators that will trigger motion and text object completion
   -- to enable all native operators, set the preset / operators plugin above
-  -- operators = { gc = "Comments" },
+  operators = { gc = "Comments" },
   key_labels = {
     -- override the label used to display some keys. It doesn't effect WK in any other way.
     -- For example:
@@ -67,7 +67,7 @@ local setup = {
     "^ ",
   }, -- hide mapping boilerplate
   show_help = true, -- show help message on the command line when the popup is visible
-  triggers = "auto", -- automatically setup triggers
+  triggers = { "g" }, -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specify a list manually
   triggers_blacklist = {
     -- list of mode / prefixes that should never be hooked by WhichKey
@@ -78,76 +78,76 @@ local setup = {
   },
 }
 
-local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local mappings = {
-  ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-  ["b"] = {
-    "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-    "Buffers",
-  },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-  ["x"] = { "<cmd>q!<CR>", "Quit" },
-  ["X"] = { "<cmd>qa!<CR>", "Quit" },
-  ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-  ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-  ["f"] = {
-    "<cmd>lua require('telescope.builtin').find_files("
-      .. "vim.tbl_deep_extend('force', require('telescope.themes').get_dropdown{previewer = false},"
-      .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
-    "Find files",
-  },
-  ["F"] = {
-    "<cmd>lua require('telescope.builtin').live_grep("
-      .. "vim.tbl_deep_extend('force', require('telescope.themes').get_ivy(),"
-      .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
-    "Find Text",
-  },
-  ["P"] = {
-    "<cmd>lua require('telescope').extensions.projects.projects()<cr>",
-    "Projects",
-  },
-
-  s = {
-    name = "Search",
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-    R = { "<cmd>Telescope registers<cr>", "Registers" },
-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-    C = { "<cmd>Telescope commands<cr>", "Commands" },
-  },
-
-  t = {
-    name = "Terminal",
-    n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-    u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-    t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-    p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-    h = {
-      "<cmd>ToggleTerm size=10 direction=horizontal<cr>",
-      "Horizontal",
-    },
-    v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-  },
-  d = {
-    name = "Debug",
-    c = { "<cmd>Telescope dap commands<cr>", "Commands" },
-    d = { "<cmd>GoDebug<cr>", "Go Debug" },
-    s = { "<cmd>GoDebug -s<cr>", "Go Debug Stop" },
-    b = { "<cmd>GoBreakToggle<cr>", "Go Break Toggle" },
-  },
-}
+-- local opts = {
+--   mode = "n", -- NORMAL mode
+--   prefix = "<leader>",
+--   buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+--   silent = true, -- use `silent` when creating keymaps
+--   noremap = true, -- use `noremap` when creating keymaps
+--   nowait = true, -- use `nowait` when creating keymaps
+-- }
+--
+-- local mappings = {
+--   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
+--   ["b"] = {
+--     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+--     "Buffers",
+--   },
+--   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+--   ["x"] = { "<cmd>q!<CR>", "Quit" },
+--   ["X"] = { "<cmd>qa!<CR>", "Quit" },
+--   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+--   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+--   ["f"] = {
+--     "<cmd>lua require('telescope.builtin').find_files("
+--       .. "vim.tbl_deep_extend('force', require('telescope.themes').get_dropdown{previewer = false},"
+--       .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
+--     "Find files",
+--   },
+--   ["F"] = {
+--     "<cmd>lua require('telescope.builtin').live_grep("
+--       .. "vim.tbl_deep_extend('force', require('telescope.themes').get_ivy(),"
+--       .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
+--     "Find Text",
+--   },
+--   ["P"] = {
+--     "<cmd>lua require('telescope').extensions.projects.projects()<cr>",
+--     "Projects",
+--   },
+--
+--   s = {
+--     name = "Search",
+--     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+--     c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+--     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+--     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+--     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+--     R = { "<cmd>Telescope registers<cr>", "Registers" },
+--     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+--     C = { "<cmd>Telescope commands<cr>", "Commands" },
+--   },
+--
+--   t = {
+--     name = "Terminal",
+--     n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
+--     u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
+--     t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+--     p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
+--     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+--     h = {
+--       "<cmd>ToggleTerm size=10 direction=horizontal<cr>",
+--       "Horizontal",
+--     },
+--     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+--   },
+--   d = {
+--     name = "Debug",
+--     c = { "<cmd>Telescope dap commands<cr>", "Commands" },
+--     d = { "<cmd>GoDebug<cr>", "Go Debug" },
+--     s = { "<cmd>GoDebug -s<cr>", "Go Debug Stop" },
+--     b = { "<cmd>GoBreakToggle<cr>", "Go Break Toggle" },
+--   },
+-- }
 
 which_key.setup(setup)
-which_key.register(mappings, opts)
+-- which_key.register(mappings, opts)

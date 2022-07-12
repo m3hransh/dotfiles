@@ -35,6 +35,41 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+keymap("n", "<leader>a", ":Alpha<CR>", conf { desc = "Alpha" })
+keymap(
+  "n",
+  "<leader>f",
+  "<cmd>lua require('telescope.builtin').find_files("
+    .. "vim.tbl_deep_extend('force', require('telescope.themes').get_dropdown{previewer = false},"
+    .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
+  conf { desc = "Find Files" }
+)
+keymap(
+  "n",
+  "<leader>F",
+  "<cmd>lua require('telescope.builtin').live_grep("
+    .. "vim.tbl_deep_extend('force', require('telescope.themes').get_ivy(),"
+    .. "{find_command = {'rg', '--files', '--hidden', '-g', '!.git' }}))<CR>",
+  conf { desc = "Find Files" }
+)
+keymap(
+  "n",
+  "<leader>P",
+  "<cmd>lua require('telescope').extensions.projects.projects()<cr>",
+  conf { desc = "Projects" }
+)
+keymap(
+  "n",
+  "<leader>b",
+  "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+  conf { desc = "Buffers" }
+)
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", conf { desc = "Explorer" })
+keymap("n", "<leader>x", ":q!<CR>", conf { desc = "Quit" })
+keymap("n", "<leader>X", ":qa!<CR>", conf { desc = "Quit All" })
+keymap("n", "<leader>c", ":Bdelete<CR>", conf { desc = "Close Buffer" })
+keymap("n", "<leader>h", ":nohlsearch<CR>", conf { desc = "No Highlight" })
+
 -- Navigate properly when lines are wrapped
 keymap("n", "k", "gk", opts)
 keymap("n", "j", "gj", opts)
@@ -79,19 +114,14 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Packer
-keymap(
-  "n",
-  "<leader>pc",
-  "<cmd>PackerCompile<cr>",
-  conf { desc = "Compile" }
-)
+keymap("n", "<leader>pc", ":PackerCompile<CR>", conf { desc = "Compile" })
 keymap(
   "n",
   "<leader>pi",
   "<cmd>PackerInstall<cr>",
   conf { desc = "Install" }
 )
-keymap("n", "<leader>ps", "<cmd>PackerSync<cr>", conf { desc = "Sync" })
+keymap("n", "<leader>ps", ":PackerSync<CR>", conf { desc = "Sync" })
 keymap(
   "n",
   "<leader>pS",
@@ -103,6 +133,56 @@ keymap(
   "<leader>pu",
   "<cmd>PackerUpdate<cr>",
   conf { desc = "Update" }
+)
+
+-- Search
+keymap(
+  "n",
+  "<leader>sb",
+  "<cmd>Telescope git_branches<cr>",
+  conf { desc = "Checkout Branch" }
+)
+keymap(
+  "n",
+  "<leader>sc",
+  "<cmd>Telescope colorscheme<cr>",
+  conf { desc = "Colorscheme" }
+)
+keymap(
+  "n",
+  "<leader>sh",
+  "<cmd>Telescope help_tags<cr>",
+  conf { desc = "Find Help" }
+)
+keymap(
+  "n",
+  "<leader>sM",
+  "<cmd>Telescope man_pages<cr>",
+  conf { desc = "Man Pages" }
+)
+keymap(
+  "n",
+  "<leader>sr",
+  "<cmd>Telescope oldfiles<cr>",
+  conf { desc = "Open Recent file" }
+)
+keymap(
+  "n",
+  "<leader>sR",
+  "<cmd>Telescope registers<cr>",
+  conf { desc = "Open Recent file" }
+)
+keymap(
+  "n",
+  "<leader>sk",
+  "<cmd>Telescope keymaps<cr>",
+  conf { desc = "Keymaps" }
+)
+keymap(
+  "n",
+  "<leader>sC",
+  "<cmd>Telescope commands<cr>",
+  conf { desc = "Commands" }
 )
 
 -- Git
@@ -197,6 +277,46 @@ keymap(
   conf { desc = "Diff" }
 )
 
+-- Terminal
+keymap(
+  "n",
+  "<leader>tn",
+  "<cmd>lua _NODE_TOGGLE()<cr>",
+  conf { desc = "Node" }
+)
+keymap(
+  "n",
+  "<leader>tu",
+  "<cmd>lua _NCDU_TOGGLE()<cr>",
+  conf { desc = "NCDU" }
+)
+keymap(
+  "n",
+  "<leader>tf",
+  "<cmd>ToggleTerm direction=float<cr>",
+  conf { desc = "Float" }
+)
+keymap(
+  "n",
+  "<leader>th",
+  "<cmd>ToggleTerm size=10 direction=horizontal<cr>",
+  conf { desc = "Horizontal Terminal" }
+)
+keymap(
+  "n",
+  "<leader>tv",
+  "<cmd>ToggleTerm size=80 direction=vertical<cr>",
+  conf { desc = "Vertical Terminal" }
+)
+
+-- Debug
+keymap(
+  "n",
+  "<leader>dc",
+  "<cmd>Telescope dap commands<cr>",
+  conf { desc = "Vertical Terminal" }
+)
+
 -- LSP
 
 local map = vim.api.nvim_buf_set_keymap
@@ -216,7 +336,7 @@ end
 
 M.lsp_keymaps = function(client, bufnr)
   local rc = client.server_capabilities
-  vim.pretty_print(rc)
+  -- vim.pretty_print(rc)
 
   -- Goto
   local keymap_g = {
@@ -250,8 +370,8 @@ M.lsp_keymaps = function(client, bufnr)
     "<cmd>lua vim.lsp.buf.type_definition()<CR>",
     "Goto Type Definition"
   )
-  vim.pretty_print(keymap_g)
   which_key.register(keymap_g, { buffer = bufnr, prefix = "g" })
+
   -- Help
   map_cond(
     rc.hoverProvider,
@@ -261,7 +381,7 @@ M.lsp_keymaps = function(client, bufnr)
     "<cmd>lua vim.lsp.buf.hover()<CR>",
     conf { "Hover" }
   )
-  which_cond(
+  map_cond(
     rc.signatureHelpProvider,
     bufnr,
     "n",
@@ -327,7 +447,8 @@ M.lsp_keymaps = function(client, bufnr)
     "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
     "Workspace Symbols"
   )
-  which_key.register(keymap_l, { buffer = bufnr, prefix = "<leader>" })
+  which_key.register(keymap_l, { buffer = bufnr, prefix = "g" })
+
   -- Diagnostics
   map(
     bufnr,

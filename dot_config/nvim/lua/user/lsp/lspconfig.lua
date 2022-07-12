@@ -7,33 +7,37 @@ end
 
 local handlers = require "user.lsp.handlers"
 
+local default_opts = {
+  capabilities = handlers.capabilities,
+  on_attach = handlers.on_attach,
+}
+
 local function config(_config)
-  return vim.tbl_deep_extend("force", {
-    capabilities = handlers.capabilities,
-    on_attach = handlers.on_attach,
-  }, _config or {})
+  return vim.tbl_deep_extend("force", default_opts, _config or {})
 end
 
 M.setup = function(servers)
   -- all the general lspconfig config is in handlers
   handlers.setup()
-  local opts = {
-    on_attach = require("user.lsp.handlers").on_attach,
-    capabilities = require("user.lsp.handlers").capabilities,
-  }
   for _, server in pairs(servers) do
     if server == "sumneko_lua" then
-      lspconfig[server].setup(
-        config(require "user.lsp.settings.sumneko_lua")
-      )
+      local opts = config(require "user.lsp.settings.sumneko_lua")
+      -- Add support for Nvim API
+      local ok, luadev = pcall(require, "lua-dev")
+      if ok then
+        opts = luadev.setup { lspconfig = opts }
+      end
+      lspconfig[server].setup(opts)
     elseif server == "jsonls" then
       lspconfig[server].setup(config(require "user.lsp.settings.jsonls"))
     elseif server == "gopls" then
       local go_opts = require("go.lsp").config()
-      opts = vim.tbl_deep_extend("force", opts, go_opts)
-      lspconfig[server].setup(config())
+      -- Use default
+      lspconfig[server].setup(
+        vim.tbl_deep_extend("force", go_opts, default_opts)
+      )
     else
-      lspconfig[server].setup(config())
+      lspconfig[server].setup(default_opts)
     end
   end
 end

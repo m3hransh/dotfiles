@@ -32,7 +32,7 @@ go.setup {
   lsp_on_attach = nil, -- nil: do nothing
   -- if lsp_on_attach is a function: use this function as on_attach function for gopls,
   -- when lsp_cfg is true
-  lsp_keymaps = true, -- true: apply default lsp keymaps
+  lsp_keymaps = false, -- true: apply default lsp keymaps
   lsp_codelens = true,
   lsp_diag_hdlr = true, -- hook lsp diag handler
   gopls_remote_auto = true,
@@ -45,9 +45,4 @@ go.setup {
   -- windows: use visual studio style of keymap
   dap_vt = true, -- false, true and 'all frames'
   textobjects = true,
-  build_tags = "", --- you can provide extra build tags for tests or debugger
-  test_runner = "go", -- one of {`go`, `richgo`, `dlv`, `ginkgo`}
-  verbose_tests = true, -- set to add verbose flag to tests
-  run_in_floaterm = false, -- set to true to run in float window.
-  luasnip = false, -- set true to enable included luasnip
 }
