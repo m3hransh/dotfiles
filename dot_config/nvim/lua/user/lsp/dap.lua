@@ -19,6 +19,7 @@ dapui.setup {
     repl = "r",
     toggle = "t",
   },
+  expand_lines = vim.fn.has "nvim-0.7",
   layout = {
     -- You can change the order of elements in the sidebar
     {
@@ -37,7 +38,7 @@ dapui.setup {
     },
     {
       elements = { "repl" },
-      size = 10,
+      size = 60,
       position = "bottom", -- Can be "left", "right", "top", "bottom"
     },
   },
@@ -51,6 +52,7 @@ dapui.setup {
   },
   windows = { indent = 1 },
 }
+
 dap.adapters.go = function(callback, _)
   local stdout = vim.loop.new_pipe(false)
   local handle

@@ -49,6 +49,7 @@ vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 -- Change the "hint" color to the "orange" color, and make the "error" color bright red
 vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
+-- vim.g.neovide_cursor_vfx_mode = "railgun"
 -- auto close nvim tree
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   nested = true,
