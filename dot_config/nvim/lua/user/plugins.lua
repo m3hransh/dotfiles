@@ -60,6 +60,7 @@ return packer.startup(function(use)
   use "goolord/alpha-nvim"
   use "antoinemadec/FixCursorHold.nvim"
   use "folke/which-key.nvim"
+  use "rcarriga/nvim-notify"
 
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
@@ -87,7 +88,15 @@ return packer.startup(function(use)
   use "rafamadriz/friendly-snippets"
 
   -- LSP
-  use "neovim/nvim-lspconfig"
+  use {
+    "neovim/nvim-lspconfig",
+    -- opt = true,
+    -- event = "BufReadPre",
+    wants = { "nvim-lsp-installer" },
+    requires = {
+      "williamboman/nvim-lsp-installer",
+    },
+  }
   use "williamboman/nvim-lsp-installer"
   use "jose-elias-alvarez/null-ls.nvim"
   use "ray-x/go.nvim"

@@ -30,7 +30,7 @@ vim.cmd [[
   augroup end
   augroup _lsp
     autocmd!
-    autocmd BufWritePre *.lua lua vim.lsp.buf.format {async = true}
+    autocmd BufWritePre *.lua lua vim.lsp.buf.format {async = false}
     autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
   augroup end
 ]]
