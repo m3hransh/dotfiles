@@ -1,6 +1,7 @@
 require "user.options"
 require "user.keymaps"
 require "user.plugins"
+require "user.refactoring"
 require "user.colorscheme"
 require "user.presence"
 require "user.cmp"

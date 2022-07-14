@@ -113,6 +113,14 @@ return packer.startup(function(use)
   use "ray-x/go.nvim"
   use "ray-x/guihua.lua" -- floating window support
 
+  -- Refactoring
+use {
+    "ThePrimeagen/refactoring.nvim",
+    requires = {
+        {"nvim-lua/plenary.nvim"},
+        {"nvim-treesitter/nvim-treesitter"}
+    }
+}
   -- Debug
   use "mfussenegger/nvim-dap"
   use "theHamsta/nvim-dap-virtual-text"

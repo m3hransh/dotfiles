@@ -5,7 +5,7 @@ end
 
 M = {}
 
-local opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = true, nowait = false }
 
 local function conf(new_opts)
   return vim.tbl_extend("force", opts, new_opts)
@@ -310,6 +310,7 @@ keymap(
 )
 
 -- Debug
+-- TODO: Add dap support for other languages
 keymap(
   "n",
   "<leader>dc",
@@ -317,6 +318,60 @@ keymap(
   conf { desc = "Vertical Terminal" }
 )
 
+-- Refactoring
+-- Remaps for the refactoring operations currently offered by the plugin
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>re",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+  conf { desc = "Extract Function" }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>rf",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+  conf { desc = "Extract Function To File" }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>rr",
+  [[ <Esc><Cmd>lua require('telescope').extensions.refactoring.refactors()<CR>]],
+  conf { desc = "Extract Function To File" }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>rv",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
+  { noremap = true, silent = true, expr = false }
+)
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>ri",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+  { noremap = true, silent = true, expr = false }
+)
+
+-- Extract block doesn't need visual mode
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>rb",
+  [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]],
+  { noremap = true, silent = true, expr = false }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>rbf",
+  [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
+  { noremap = true, silent = true, expr = false }
+)
+
+-- Inline variable can also pick up the identifier currently under the cursor without visual mode
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>ri",
+  [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+  { noremap = true, silent = true, expr = false }
+)
 -- LSP
 
 local map = vim.api.nvim_buf_set_keymap
@@ -339,38 +394,49 @@ M.lsp_keymaps = function(client, bufnr)
   -- vim.pretty_print(rc)
 
   -- Goto
-  local keymap_g = {
+  local which_keymaps = {
     name = "Goto",
+    l = {
+      name = "LSP",
+      i = { "<cmd>LspInfo<cr>", "LSP Info" },
+      I = { "<cmd>LspInstallInfo<cr>", "LSP Installer Info" },
+      c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Actions" },
+      l = { "<cmd>Telescope diagnostics<CR>", "Diagnostics List" },
+      d = {
+        '<cmd>lua vim.diagnostic.open_float({border ="rounded" })<CR>',
+        "Show Diagnostc",
+      },
+      q = { "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix" },
+    },
   }
   which_cond(
-    keymap_g,
+    which_keymaps,
     rc.declarationProvider,
     "D",
     "<cmd>lua vim.lsp.buf.declaration()<CR>",
     "Goto Declaration"
   )
   which_cond(
-    keymap_g,
+    which_keymaps,
     rc.definitionProvider,
     "d",
     "<cmd>lua vim.lsp.buf.definition()<CR>",
     "Goto Definition"
   )
   which_cond(
-    keymap_g,
+    which_keymaps,
     rc.implementationProvider,
     "i",
     "<cmd>lua vim.lsp.buf.implementation()<CR>",
     "Goto Implementation"
   )
   which_cond(
-    keymap_g,
+    which_keymaps,
     rc.typeDefinitionProvider,
     "t",
     "<cmd>lua vim.lsp.buf.type_definition()<CR>",
     "Goto Type Definition"
   )
-  which_key.register(keymap_g, { buffer = bufnr, prefix = "g" })
 
   -- Help
   map_cond(
@@ -391,63 +457,52 @@ M.lsp_keymaps = function(client, bufnr)
   )
 
   -- Code
-  local keymap_l = {
-    l = {
-      name = "LSP",
-      i = { "<cmd>LspInfo<cr>", "LSP Info" },
-      I = { "<cmd>LspInstallInfo<cr>", "LSP Installer Info" },
-      c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Actions" },
-      l = { "<cmd>Telescope diagnostics<CR>", "Diagnostics List" },
-      d = {
-        '<cmd>lua vim.diagnostic.open_float({border ="rounded" })<CR>',
-        "Show Diagnostc",
-      },
-      q = { "<cmd>lua vim.diagnostic.setloclist()<CR>", "Quickfix" },
-    },
-  }
   which_cond(
-    keymap_l.l,
+    which_keymaps.l,
     next(rc.codeActionProvider.codeActionKinds) ~= nil,
     "a",
     "<cmd>lua vim.lsp.buf.code_action()<CR>",
     "Code Actions"
   )
   which_cond(
-    keymap_l.l,
+    which_keymaps.l,
     rc.documentFormattingProvider,
     "f",
     "<cmd>lua vim.lsp.buf.format { async=true }<CR>",
     "Format"
   )
   which_cond(
-    keymap_l.l,
+    which_keymaps.l,
     rc.referencesProvider,
     "r",
     "<cmd>Telescope lsp_references<CR>",
     "References"
   )
   which_cond(
-    keymap_l.l,
+    which_keymaps.l,
     rc.renameProvider.prepareProvider,
     "R",
     "<cmd>lua vim.lsp.buf.rename()<CR>",
     "Rename"
   )
   which_cond(
-    keymap_l.l,
+    which_keymaps.l,
     rc.documentSymbolProvider,
     "s",
     "<cmd>Telescope lsp_document_symbols<cr>",
     "Document Symbols"
   )
   which_cond(
-    keymap_l.l,
+    which_keymaps.l,
     rc.workspaceSymbolProvider,
     "S",
     "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
     "Workspace Symbols"
   )
-  which_key.register(keymap_l, { buffer = bufnr, prefix = "g" })
+  which_key.register(
+    which_keymaps,
+    { buffer = bufnr, prefix = "g", nowait = false, noremap = true }
+  )
 
   -- Diagnostics
   map(

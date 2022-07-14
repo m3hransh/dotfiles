@@ -33,6 +33,7 @@ project.setup {
     ".svn",
     "Makefile",
     "package.json",
+    "go.mod",
   },
 
   ---@ Show hidden files in telescope when searching for files in a project
