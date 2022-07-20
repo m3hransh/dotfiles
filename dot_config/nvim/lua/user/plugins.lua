@@ -91,6 +91,7 @@ return packer.startup(function(use)
     cmd = "SymbolsOutline",
   }
 
+  use "jbyuki/instant.nvim"
   -- snippets
   use "L3MON4D3/LuaSnip"
   use "rafamadriz/friendly-snippets"
@@ -115,13 +116,13 @@ return packer.startup(function(use)
   use "ray-x/guihua.lua" -- floating window support
 
   -- Refactoring
-use {
+  use {
     "ThePrimeagen/refactoring.nvim",
     requires = {
-        {"nvim-lua/plenary.nvim"},
-        {"nvim-treesitter/nvim-treesitter"}
-    }
-}
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+  }
   -- Debug
   use "mfussenegger/nvim-dap"
   use "theHamsta/nvim-dap-virtual-text"
