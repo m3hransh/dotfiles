@@ -68,6 +68,7 @@ return packer.startup(function(use)
   use "folke/tokyonight.nvim"
 
   use "norcalli/nvim-colorizer.lua"
+  use "ur4ltz/surround.nvim"
 
   -- cmp plugins
   use {
