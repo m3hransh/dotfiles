@@ -5,7 +5,7 @@ end
 
 M = {}
 
-local opts = { noremap = true, silent = true, nowait = false }
+local opts = { noremap = true, silent = true }
 
 local function conf(new_opts)
   return vim.tbl_extend("force", opts, new_opts)
@@ -541,6 +541,14 @@ M.lsp_keymaps = function(client, bufnr)
     "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
     opts
   )
+
+  -- Debuging
+  if client.name == "gopls" then
+    -- TODO: add GO specific debugin keymaps
+    map(bufnr, "n", "<leader>dd", "<cmd>GoDebug<CR>", opts)
+    map(bufnr, "n", "<leader>db", "<cmd>GoBreakToggle<CR>", opts)
+    map(bufnr, "n", "<leader>ds", "<cmd>GoDebug -s<CR>", opts)
+  end
 
   -- you can use <leader>lf for formatting
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format {async = true}' ]]
