@@ -1,5 +1,6 @@
 require "user.options"
 require "user.keymaps"
+require "user.incline"
 require "user.plugins"
 require "user.refactoring"
 require "user.luasnip"

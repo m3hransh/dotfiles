@@ -61,6 +61,7 @@ return packer.startup(function(use)
   use "antoinemadec/FixCursorHold.nvim"
   use "folke/which-key.nvim"
   use "rcarriga/nvim-notify"
+  use "b0o/incline.nvim"
 
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
