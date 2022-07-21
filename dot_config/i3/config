@@ -267,8 +267,10 @@ bindsym $mod+minus scratchpad show
 # focus the parent container
 bindsym $mod+a focus parent
 
+# move workspace to another screen
+bindsym $mod+m move workspace to output left
 # open new empty workspace
-bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace
+# bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace
 
 # Multimedia Keys
 
@@ -295,7 +297,7 @@ bindsym $mod+Shift+u exec /usr/local/bin/switch-audio-port
 ## App shortcuts
 bindsym $mod+F2 exec /usr/bin/brave
 bindsym $mod+o exec obsidian
-bindsym $mod+n exec /usr/bin/neovide
+bindsym $mod+n exec neovide
 bindsym Print exec scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
 
 # Emoji picker
@@ -313,11 +315,11 @@ bindsym $mod+Shift+p exec ~/.config/i3/scripts/power-profiles
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:"
 set $ws2 "2:"
-set $ws3 "4:"
-set $ws4 "3:"
+set $ws3 "3:"
+set $ws4 "4:"
 set $ws5 "5:"
 set $ws6 "6:阮"
-set $ws7 "7"
+set $ws7 "7:"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
@@ -327,7 +329,7 @@ set $ws10 "10"
 # you can get from xrandr command
 #workspace $ws1 output VGA-0
 #workspace $ws2 output VGA-0
-#workspace $ws3 output HDMI-0
+workspace $ws2 output HDMI-A-0
 #workspace $ws4 output HDMI-0
 #workspace $ws5 output HDMI-0
 
@@ -339,11 +341,13 @@ assign [class="(?i)firefox"] $ws2
 assign [class="Brave"] $ws2
 assign [class="obsidian"] $ws3
 assign [class="Thunar"] $ws4
+assign [class="(?i)ranger"] $ws4
 assign [class="Thunderbird"] $ws5
 assign [class="Mailspring"] $ws5
 assign [class="TelegramDesktop"] $ws5
 assign [class="discord"] $ws5
-assign [class="spotify-launcher"] $ws6
+assign [class="(?i)Spotify"] $ws6
+assign [class="(?i)obs"] $ws7
 
 # automatic set focus new window if it opens on another workspace then the current:
 for_window [class=Xfce4-terminal] focus
@@ -351,6 +355,7 @@ for_window [class=(?i)Brave] focus
 for_window [class=(?i)neovide] focus
 for_window [class=(?i)obsidian] focus
 for_window [class=Thunar] focus
+for_window [class=(?i)ranger] focus
 for_window [class=Thunderbird] focus
 for_window [class=Mailspring] focus
 for_window [class=TelegramDesktop] focus
@@ -382,10 +387,10 @@ for_window [urgent=latest] focus
 # For modifications, it can be copied to ~/.config/picom/picom.conf or ~/.config/picom.conf
 #
 # using default config 
-exec_always --no-startup-id picom -b
+#exec_always --no-startup-id picom -b
 #
 # for custom config:
-#exec_always --no-startup-id picom --config  ~/.config/picom.conf
+exec_always --no-startup-id picom --config  ~/.config/picom.conf -b
 
 #############################################
 # autostart applications/services on login: #
@@ -423,10 +428,10 @@ exec_always --no-startup-id  ~/.config/polybar/launch.sh
 
 # start a script to setup displays
 # uncomment the next line, use arandr to setup displays and save the file as monitor:
-exec --no-startup-id ~/.screenlayout/monitor.sh
+exec_always --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-exec --no-startup-id sleep 2 && nitrogen --restore
+exec_always --no-startup-id sleep 2 && nitrogen --restore
 #exec --no-startup-id feh --bg-fill /usr/share/endeavouros/backgrounds/endeavouros_i3.png
 
 # set powersavings for display:
