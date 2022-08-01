@@ -459,7 +459,7 @@ M.lsp_keymaps = function(client, bufnr)
   -- Code
   which_cond(
     which_keymaps.l,
-    next(rc.codeActionProvider.codeActionKinds) ~= nil,
+    rc.codeActionProvider,
     "a",
     "<cmd>lua vim.lsp.buf.code_action()<CR>",
     "Code Actions"
@@ -480,7 +480,7 @@ M.lsp_keymaps = function(client, bufnr)
   )
   which_cond(
     which_keymaps.l,
-    rc.renameProvider.prepareProvider,
+    rc.renameProvider,
     "R",
     "<cmd>lua vim.lsp.buf.rename()<CR>",
     "Rename"

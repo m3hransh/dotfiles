@@ -121,8 +121,8 @@ lualine.setup {
     lualine_c = {},
     lualine_x = {
       diff,
-      { spaces, fmt = trunc(90, 30, 70) },
-      { "encoding", fmt = trunc(90, 30, 70) },
+      { spaces, fmt = trunc(90, 30, 80) },
+      { "encoding", fmt = trunc(90, 30, 80) },
       filetype,
     },
   },
