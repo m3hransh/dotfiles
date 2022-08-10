@@ -23,6 +23,9 @@ go.setup {
   comment_placeholder = "   ",
   icons = { breakpoint = "🧘", currentpos = "🏃" }, -- set to false to disable
   -- this option
+  lsp_inlay_hints = {
+    enable = false,
+  },
   verbose = false,
   log_path = vim.fn.expand "$HOME" .. "/tmp/gonvim.log",
   lsp_cfg = false, -- false: do nothing

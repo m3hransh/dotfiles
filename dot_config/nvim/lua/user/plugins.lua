@@ -60,7 +60,7 @@ return packer.startup(function(use)
   use "goolord/alpha-nvim"
   use "antoinemadec/FixCursorHold.nvim"
   use "folke/which-key.nvim"
-  use "rcarriga/nvim-notify"
+  -- use "rcarriga/nvim-notify"
   use "b0o/incline.nvim"
 
   -- Colorschemes
@@ -69,7 +69,7 @@ return packer.startup(function(use)
   use "folke/tokyonight.nvim"
 
   use "norcalli/nvim-colorizer.lua"
-  use "ur4ltz/surround.nvim"
+  use "kylechui/nvim-surround"
 
   -- cmp plugins
   use {
@@ -145,15 +145,12 @@ return packer.startup(function(use)
   use "lewis6991/gitsigns.nvim"
 
   -- Markdonw
-  -- use {
-  --   "iamcco/markdown-preview.nvim",
-  --   setup = function()
-  --     vim.g.mkdp_filetypes = { "markdown" }
-  --   end,
-  --   ft = { "markdown" },
-  --   run = "cd app && npm install",
-  -- }
-  --
+  use {
+    "iamcco/markdown-preview.nvim",
+    run = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  }
   -- Discord presence
   use "andweeb/presence.nvim"
 

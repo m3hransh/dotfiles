@@ -72,7 +72,6 @@ local diagnostics = {
   colored = false,
   update_in_insert = false,
   always_visible = true,
-  globalstatus = true,
 }
 
 local diff = {
@@ -110,7 +109,7 @@ lualine.setup {
     theme = "auto",
     disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
     always_divide_middle = true,
-    globalstatus = false,
+    globalstatus = true,
   },
   sections = {
     lualine_a = { branch, diagnostics },
@@ -121,8 +120,8 @@ lualine.setup {
     lualine_c = {},
     lualine_x = {
       diff,
-      { spaces, fmt = trunc(90, 30, 80) },
-      { "encoding", fmt = trunc(90, 30, 80) },
+      { spaces, fmt = trunc(90, 30, 90) },
+      { "encoding", fmt = trunc(90, 30, 90) },
       filetype,
     },
   },

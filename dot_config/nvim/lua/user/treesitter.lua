@@ -80,5 +80,14 @@ configs.setup {
         ["ic"] = "@class.inner",
       },
     },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>xp"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>xP"] = "@parameter.inner",
+      },
+    },
   },
 }

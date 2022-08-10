@@ -4,4 +4,8 @@ if not status_ok then
   return
 end
 
-incline.setup()
+incline.setup {
+  hide = {
+    focused_win = true,
+  },
+}
