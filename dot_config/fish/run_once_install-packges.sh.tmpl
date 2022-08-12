@@ -21,8 +21,16 @@ if [ ! -d ~/.local/share/omf ]; then
 fi
 fish -c "omf install bass"
 if [[ ! "$SHELL" =~ .*"fish".* ]]; then
+# Make fish default shell
   echo /usr/bin/fish | sudo tee -a /etc/shells
   chsh -s /usr/bin/fish 
+fi
+
+# Support for sdkman in fish
+if ! command -v fisher &> /dev/null; then
+# Install fisher
+  curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+  fisher install reitzig/sdkman-for-fish@v1.4.0
 fi
 
 # Install starship shell prompt
