@@ -116,6 +116,9 @@ return packer.startup(function(use)
   use "ray-x/go.nvim"
   use "ray-x/guihua.lua" -- floating window support
 
+  -- Java
+  use "mfussenegger/nvim-jdtls"
+
   -- Refactoring
   use {
     "ThePrimeagen/refactoring.nvim",
@@ -144,7 +147,7 @@ return packer.startup(function(use)
   -- Git
   use "lewis6991/gitsigns.nvim"
 
-  -- Markdonw
+  -- Markdown
   use {
     "iamcco/markdown-preview.nvim",
     run = function()

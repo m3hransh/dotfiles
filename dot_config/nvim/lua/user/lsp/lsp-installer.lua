@@ -12,7 +12,6 @@ M.servers = {
   "cssmodules_ls",
   "emmet_ls",
   "html",
-  -- "jdtls",
   "jsonls",
   "solc",
   "sumneko_lua",

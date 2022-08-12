@@ -7,6 +7,5 @@ local servers = require("user.lsp.lsp-installer").servers
 require "user.lsp.go"
 require("user.lsp.lspconfig").setup(servers)
 require "user.lsp.null-ls"
--- require "user.lsp.dap"
 -- For debuging other than GO use this
--- require "user.lsp.dap"
+require "user.lsp.dap"

@@ -15,6 +15,7 @@ null_ls.setup {
       prefer_local = { "node_modules/.bin" },
     },
     formatting.black.with { extra_args = { "--fast" } },
+    formatting.google_java_format,
     formatting.stylua,
     -- diagnostics.flake8
   },
