@@ -30,8 +30,9 @@ vim.cmd [[
   augroup end
   augroup _lsp
     autocmd!
-    autocmd BufWritePre *.lua lua vim.lsp.buf.format {async = false}
-    autocmd BufWritePre *.go :silent! lua vim.lsp.buf.format {async = false}
+    " autocmd BufWritePre *.lua :lua vim.lsp.buf.format {async = false}
+    " autocmd BufWritePre *.go :silent! lua vim.lsp.buf.format {async = false}
+    autocmd BufWritePre * :silent! lua vim.lsp.buf.format {async = false}
   augroup end
 ]]
 

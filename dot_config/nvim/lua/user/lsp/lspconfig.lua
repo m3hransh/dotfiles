@@ -23,10 +23,6 @@ M.setup = function(servers)
     if server == "sumneko_lua" then
       local opts = config(require "user.lsp.settings.sumneko_lua")
       -- Add support for Nvim API
-      local ok, luadev = pcall(require, "lua-dev")
-      if ok then
-        opts = luadev.setup { lspconfig = opts }
-      end
       lspconfig[server].setup(opts)
     elseif server == "jsonls" then
       lspconfig[server].setup(config(require "user.lsp.settings.jsonls"))

@@ -73,13 +73,12 @@ M.on_attach = function(client, bufnr)
     -- Disable the tsserver formating for null-ls
     client.server_capabilities.documentFormattingProvider = false
   end
-  if client.name == "jdt.ls" then
-    client.server_capabilities.documentFormattingProvider = false
+  if client.name == "jdtls" then
+    -- client.server_capabilities.documentFormattingProvider = false
     vim.lsp.codelens.refresh()
-    if JAVA_DAP_ACTIVE then
-      require("jdtls").setup_dap { hotcodereplace = "auto" }
-      require("jdtls.dap").setup_dap_main_class_configs()
-    end
+    print("hello")
+    require("jdtls").setup_dap { hotcodereplace = "auto" }
+    require("jdtls.dap").setup_dap_main_class_configs()
   end
   require("user.keymaps").lsp_keymaps(client, bufnr)
   lsp_highlight_document(client)
@@ -92,6 +91,6 @@ if not status_ok then
   return
 end
 
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
 return M

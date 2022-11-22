@@ -67,7 +67,7 @@ keymap(
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", conf { desc = "Explorer" })
 keymap("n", "<leader>x", ":q!<CR>", conf { desc = "Quit" })
 keymap("n", "<leader>X", ":qa!<CR>", conf { desc = "Quit All" })
-keymap("n", "<leader>c", ":Bdelete<CR>", conf { desc = "Close Buffer" })
+keymap("n", "<leader>c", ":Bdelete!<CR>", conf { desc = "Close Buffer" })
 keymap("n", "<leader>h", ":nohlsearch<CR>", conf { desc = "No Highlight" })
 
 -- Navigate properly when lines are wrapped
@@ -309,15 +309,6 @@ keymap(
   conf { desc = "Vertical Terminal" }
 )
 
--- Debug
--- TODO: Add dap support for other languages
-keymap(
-  "n",
-  "<leader>dc",
-  "<cmd>Telescope dap commands<cr>",
-  conf { desc = "Vertical Terminal" }
-)
-
 -- Refactoring
 -- Remaps for the refactoring operations currently offered by the plugin
 vim.api.nvim_set_keymap(
@@ -466,9 +457,9 @@ M.lsp_keymaps = function(client, bufnr)
   )
   which_cond(
     which_keymaps.l,
-    rc.documentFormattingProvider,
+    true,
     "f",
-    "<cmd>lua vim.lsp.buf.format { async=true }<CR>",
+    "<cmd>lua vim.lsp.buf.format { async=false }<CR>",
     "Format"
   )
   which_cond(
@@ -543,11 +534,68 @@ M.lsp_keymaps = function(client, bufnr)
   )
 
   -- Debuging
+  keymap(
+    "n",
+    "<leader>dc",
+    "<cmd>Telescope dap commands<cr>",
+    conf { desc = "Vertical Terminal" }
+  )
   if client.name == "gopls" then
-    -- TODO: add GO specific debugin keymaps
+    -- Go plugin already added debugging keymaps
     map(bufnr, "n", "<leader>dd", "<cmd>GoDebug<CR>", opts)
     map(bufnr, "n", "<leader>db", "<cmd>GoBreakToggle<CR>", opts)
     map(bufnr, "n", "<leader>ds", "<cmd>GoDebug -s<CR>", opts)
+    -- For other languages
+  else
+    map(
+      bufnr,
+      "n",
+      "<leader>dd",
+      "<cmd>lua require'dapui'.open()<CR>",
+      opts
+    )
+    map(
+      bufnr,
+      "n",
+      "<leader>db",
+      "<cmd>lua require'dap'.toggle_breakpoint()<CR>",
+      opts
+    )
+    map(
+      bufnr,
+      "n",
+      "<leader>dg",
+      "<cmd>lua require'dap'.continue()<CR>",
+      opts
+    )
+    map(
+      bufnr,
+      "n",
+      "<leader>dn",
+      "<cmd>lua require'dap'.step_over()<CR>",
+      opts
+    )
+    map(
+      bufnr,
+      "n",
+      "<leader>di",
+      "<cmd>lua require'dap'.step_into()<CR>",
+      opts
+    )
+    map(
+      bufnr,
+      "n",
+      "<leader>do",
+      "<cmd>lua require'dap'.step_out()<CR>",
+      opts
+    )
+    map(
+      bufnr,
+      "n",
+      "<leader>ds",
+      "<cmd>lua require'dapui'.close()<CR>",
+      opts
+    )
   end
 
   -- you can use <leader>lf for formatting

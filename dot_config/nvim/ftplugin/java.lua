@@ -5,7 +5,7 @@ if not status_cmp_ok then
   return
 end
 capabilities.textDocument.completion.completionItem.snippetSupport = false
-capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
 local status, jdtls = pcall(require, "jdtls")
 if not status then
@@ -63,7 +63,7 @@ if JAVA_DAP_ACTIVE then
     vim.split(
       vim.fn.glob(
         home
-          .. "/Repos/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
+        .. "/Repos/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"
       ),
       "\n"
     )
@@ -86,8 +86,8 @@ local config = {
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
     "-javaagent:"
-      .. home
-      .. "/.local/share/nvim/lsp_servers/jdtls/lombok.jar",
+        .. home
+        .. "/.local/share/nvim/lsp_servers/jdtls/lombok.jar",
     "-Xms1g",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
@@ -99,7 +99,7 @@ local config = {
     "-jar",
     vim.fn.glob(
       home
-        .. "/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
+      .. "/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
     ),
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
@@ -161,7 +161,7 @@ local config = {
         },
       },
       format = {
-        enabled = false,
+        --[[ enabled = false, ]]
         -- settings = {
         --   profile = "asdf"
         -- }
