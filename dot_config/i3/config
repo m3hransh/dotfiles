@@ -230,7 +230,7 @@ bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
+# bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 # split in horizontal orientation
 # bindsym $mod+h split h
@@ -295,14 +295,14 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Shift+u exec /usr/local/bin/switch-audio-port
 
 ## App shortcuts
-bindsym $mod+F2 exec /usr/bin/brave
+bindsym $mod+b exec /usr/bin/brave
 bindsym $mod+o exec obsidian
 bindsym $mod+n exec neovide
-bindsym Print exec scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
+bindsym $mod+F6 exec flameshot gui
 
 # Emoji picker
 bindsym $mod+p exec rofimoji -f all
-bindsym $mod+g exec rofimoji -f ~/.config/rofimoji/gitmojis
+bindsym $mod+g exec rofimoji -f ~/.config/rofimoji/gitmojis.csv
 
 # Power Profiles menu switcher (rofi)
 bindsym $mod+Shift+p exec ~/.config/i3/scripts/power-profiles
@@ -395,6 +395,8 @@ exec_always --no-startup-id picom --config  ~/.config/picom.conf -b
 #############################################
 # autostart applications/services on login: #
 #############################################
+exec_always --no-startup-id autotiling -w 1 2 4 5 6 7 8
+# exec_always i3-layouts
 
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -416,7 +418,7 @@ exec --no-startup-id dex --autostart --environment i3
 # configure multiple keyboard layouts and hotkey to switch (Alt+CAPSLOCK in this example)
 #exec --no-startup-id setxkbmap -layout 'us,sk' -variant altgr-intl,qwerty -option 'grp:alt_caps_toggle'
 # Keyboard layouts
-exec_always --no-startup-id "setxkbmap -layout us,ir,de -option 'grp:alt_shift_toggle'"
+exec_always --no-startup-id "setxkbmap -model pc105 -layout us,ir,de -option 'grp:alt_shift_toggle'"
 exec_always --no-startup-id sbxkb
 exec --no-startup-id asusctltray
 
@@ -526,7 +528,7 @@ set $yellowbrown	#e1b700
 
 # define colors for windows:
 #class		        	border		bground		text		indicator	child_border
-client.focused		    $lightblue	$lightblue	$white		$purple		$mediumgrey
+client.focused		    $lightblue	$lightblue	$white		$purple		$lightblue
 client.unfocused	    $darkblue	$darkblue	$grey		$purple		$darkgrey
 client.focused_inactive	$darkblue	$darkblue	$grey		$purple		$black
 client.urgent		    $urgentred	$urgentred	$white		$purple		$yellowbrown
