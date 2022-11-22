@@ -5,12 +5,24 @@
 if ! pacman -Q fish > /dev/null; then
   sudo pacman -S fish
 fi
+if ! pacman -Q exa > /dev/null; then
+  sudo pacman -S exa
+fi
+if ! pacman -Q trash-cli > /dev/null; then
+  sudo pacman -S trash-cli
+fi
 {{   end }}
 
 {{   if eq .chezmoi.osRelease.id "ubuntu" }}
 # Install fish
 if ! apt-cache show fish > /dev/null; then
   sudo apt install fish
+fi
+if ! apt-cache show exa > /dev/null; then
+  sudo apt install exa
+fi
+if ! apt-cache show trash > /dev/null; then
+  sudo apt install trash-cli
 fi
 {{   end -}}
 

@@ -16,6 +16,7 @@ alias nn="nvim"
 alias color "colorscript random"
 alias ll "exa --icons -l -g"
 alias tlmgr "/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode"
+alias rm="echo Use 'trash', or the full path i.e. '/bin/rm';trash"
 
 starship init fish | source
 
