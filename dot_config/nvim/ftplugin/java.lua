@@ -15,10 +15,10 @@ end
 -- Determine OS
 local home = os.getenv "HOME"
 if vim.fn.has "mac" == 1 then
-  WORKSPACE_PATH = home .. "/Projects/"
+  WORKSPACE_PATH = home .. "/Projects/java"
   CONFIG = "mac"
 elseif vim.fn.has "unix" == 1 then
-  WORKSPACE_PATH = home .. "/Projects/"
+  WORKSPACE_PATH = home .. "/Projects/java"
   CONFIG = "linux"
 else
   print "Unsupported system"
@@ -29,8 +29,8 @@ local root_markers = {
   ".git",
   "mvnw",
   "gradlew",
-  "pom.xml",
-  "build.gradle",
+  --[[ "pom.xml", ]]
+  --[[ "build.gradle", ]]
 }
 local root_dir = require("jdtls.setup").find_root(root_markers)
 if root_dir == "" then
@@ -44,6 +44,8 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 
 local workspace_dir = WORKSPACE_PATH .. project_name
 
+-- Installation location of jdtls by nvim-lsp-installer
+local JDTLS_LOCATION = vim.fn.stdpath "data" .. "/lsp_servers/jdtls"
 -- TODO: Testing
 
 JAVA_DAP_ACTIVE = true
@@ -98,8 +100,8 @@ local config = {
     -- 💀
     "-jar",
     vim.fn.glob(
-      home
-      .. "/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
+      JDTLS_LOCATION
+      .. "/plugins/org.eclipse.equinox.launcher_*.jar"
     ),
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
     -- Must point to the                                                     Change this to
@@ -107,7 +109,7 @@ local config = {
 
     -- 💀
     "-configuration",
-    home .. "/.local/share/nvim/lsp_servers/jdtls/config_" .. CONFIG,
+    JDTLS_LOCATION .. "/config_" .. CONFIG,
     -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
     -- Must point to the                      Change to one of `linux`, `win` or `mac`
     -- eclipse.jdt.ls installation            Depending on your system.
@@ -161,10 +163,11 @@ local config = {
         },
       },
       format = {
-        --[[ enabled = false, ]]
-        -- settings = {
-        --   profile = "asdf"
-        -- }
+        enabled = true,
+         settings = {
+           url = vim.fn.stdpath "config" .. "/lang-servers/intellij-java-google-style.xml",
+            profile = "GoogleStyle",
+      },
       },
     },
     signatureHelp = { enabled = true },
@@ -225,73 +228,7 @@ vim.cmd "command! -buffer JdtUpdateConfig lua require('jdtls').update_project_co
 vim.cmd "command! -buffer JdtBytecode lua require('jdtls').javap()"
 -- vim.cmd "command! -buffer JdtJshell lua require('jdtls').jshell()"
 
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
-  return
-end
 
-local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local vopts = {
-  mode = "v", -- VISUAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local mappings = {
-  L = {
-    name = "Java",
-    o = {
-      "<Cmd>lua require'jdtls'.organize_imports()<CR>",
-      "Organize Imports",
-    },
-    v = {
-      "<Cmd>lua require('jdtls').extract_variable()<CR>",
-      "Extract Variable",
-    },
-    c = {
-      "<Cmd>lua require('jdtls').extract_constant()<CR>",
-      "Extract Constant",
-    },
-    t = {
-      "<Cmd>lua require'jdtls'.test_nearest_method()<CR>",
-      "Test Method",
-    },
-    T = { "<Cmd>lua require'jdtls'.test_class()<CR>", "Test Class" },
-    u = { "<Cmd>JdtUpdateConfig<CR>", "Update Config" },
-  },
-}
-
-local vmappings = {
-  L = {
-    name = "Java",
-    v = {
-      "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
-      "Extract Variable",
-    },
-    c = {
-      "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
-      "Extract Constant",
-    },
-    m = {
-      "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
-      "Extract Method",
-    },
-  },
-}
-
-which_key.register(mappings, opts)
-which_key.register(vmappings, vopts)
 
 -- debugging
 -- git clone git@github.com:microsoft/java-debug.git
