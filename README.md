@@ -1,31 +1,40 @@
-# ⚙️  Dotfiles
+# ⚙️ Dotfiles
+
 ![preview](images/preview.png)
-My personal dotfiles in the linux system using **chezmoi** (dotfile manager). 
+My personal dotfiles in the linux system using **chezmoi** (dotfile manager).
+
 - [Why use chezmoi?](https://www.chezmoi.io/why-use-chezmoi/)
 - [Chezmoi Quick Start](https://www.chezmoi.io/quick-start/)
-
 
 ## ⚡ Usage
 
 <details>
   <summary>1. Install Chezmoi </summary>
 
-  #### curl
+#### curl
+
     ```bash
     sh -c "$(curl -fsLS chezmoi.io/get)"
     ```
-  #### wget
+
+#### wget
+
     ```bash
     sh -c "$(wget -qO- chezmoi.io/get)"
     ```
-  #### PowerShell
+
+#### PowerShell
+
     ```bash
     (irm -useb https://chezmoi.io/get.ps1) | powershell -c -
     ```
-  #### Arch
+
+#### Arch
+
     ```bash
     pacman -S chezmoi
     ```
+
 </details>
 
 <details>
@@ -34,47 +43,67 @@ My personal dotfiles in the linux system using **chezmoi** (dotfile manager).
 ```bash
 chezmoi init
 ```
+
 - This will create a new git local reposityry in ~/.local/share/chezmoi where chezmoi will **store its source sate**
+
 ---
+
 - Install your dotfiles on new machine with a single command
+
 ```bash
 chezmoi init --apply https://github.com/username/dotfiles.git
 ```
+
 </details>
 <details>
 
 <summary>3. Use chezmoi</summary>
 
 #### Add
+
 ```bash
 chezmoi add ~/.bashrc
 ```
+
 - This will copy `~/.bashrc` to `~/.local/share/chezmoi/dot_bashrc`.
 
 #### Edit
+
 ```bash
 chezmoi edit ~/.bashrc
 ```
+
 - This will open `~/.local/share/chezmoi/dot_bashrc` in your `$EDITOR`. Make some changes and save the file.
+
 #### Diff
+
 ```bash
 chezmoi diff
 ```
+
 - see what changes chezmoi would make
+
 #### Apply
+
 ```bash
 chezmoi -v apply
 ```
+
 - `-n` for dry run
+
 #### Update
+
 ```bash
 chezmoi update
 ```
+
 - pull the changes from your repo and apply them in a singe command
 </details>
 
+4. Instruction for installing [Neovim](./dot_config/nvim/README.md)
 
 ## Tools I am using
+
 - [Kitty](https://sw.kovidgoyal.net/kitty/): Graphics processing unit-accelerated terminal emulator for Linux and macOS
 - [Fish](https://fishshell.com/): Unix shell with a focus on interactivity and usability
 - [Neovim](https://neovim.io/): Enable new applications without compromising Vim's traditional roles
