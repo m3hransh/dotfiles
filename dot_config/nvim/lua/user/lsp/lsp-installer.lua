@@ -22,6 +22,7 @@ M.servers = {
   "bashls",
   "clangd",
   "rust_analyzer",
+  "jdtls",
   -- "taplo",
 }
 

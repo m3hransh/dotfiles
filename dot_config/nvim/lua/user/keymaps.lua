@@ -551,7 +551,7 @@ M.lsp_keymaps = function(client, bufnr)
       bufnr,
       "n",
       "<leader>dd",
-      "<cmd>lua require'dapui'.open()<CR>",
+      "<cmd>lua require'dapui'.toggle()<CR>",
       conf { desc = "Open Debugging" }
     )
     map(
@@ -593,7 +593,7 @@ M.lsp_keymaps = function(client, bufnr)
       bufnr,
       "n",
       "<leader>ds",
-      "<cmd>lua require'dapui'.close()<CR>",
+      "<cmd>lua require'dap'.close()<CR>",
       conf { desc = "Close Debugging" }
     )
   end

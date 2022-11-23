@@ -78,6 +78,7 @@ M.on_attach = function(client, bufnr)
     vim.lsp.codelens.refresh()
     require("jdtls").setup_dap { hotcodereplace = "auto" }
     require("jdtls.dap").setup_dap_main_class_configs()
+    require("jdtls.setup").add_commands()
   end
   require("user.keymaps").lsp_keymaps(client, bufnr)
   lsp_highlight_document(client)
