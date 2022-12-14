@@ -308,6 +308,18 @@ keymap(
   "<cmd>ToggleTerm size=80 direction=vertical<cr>",
   conf { desc = "Vertical Terminal" }
 )
+keymap(
+  "n",
+  "<leader>tg",
+  "<cmd>exe 'silent !kitty --detach --directory \"' . getcwd() . '\" lazygit'<cr>",
+  conf { desc = "Lazygit" }
+)
+keymap(
+  "n",
+  "<leader>te",
+  "<cmd>exe 'silent !kitty --detach --directory \"' . getcwd() . '\"'<cr>",
+  conf { desc = "External Terminal" }
+)
 
 -- Refactoring
 -- Remaps for the refactoring operations currently offered by the plugin
