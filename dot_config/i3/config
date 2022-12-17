@@ -231,7 +231,7 @@ bindsym $mod+Shift+Right move right
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
 # bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth;
 # split in horizontal orientation
 # bindsym $mod+h split h
 
@@ -395,7 +395,8 @@ exec_always --no-startup-id picom --config  ~/.config/picom.conf -b
 #############################################
 # autostart applications/services on login: #
 #############################################
-exec_always --no-startup-id autotiling -w 1 2 4 5 6 7 8
+# Disable autotiling
+# exec_always --no-startup-id autotiling -w 1 2 4 5 6 7 8
 # exec_always i3-layouts
 
 #get auth work with polkit-gnome
